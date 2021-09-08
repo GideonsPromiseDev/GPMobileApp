@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "554219178174",
+    "project_id": "gpmobileapp-f23f2",
+    "storage_bucket": "gpmobileapp-f23f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554219178174:android:5c45c7918eb313b620b6ef",
+        "android_client_info": {
+          "package_name": "com.example.gp_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554219178174-r0jun4i3qdfcp7kkk0jpuqtpbpk3k9jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp_BPsSTgjAFnQKV7993O_mOswq2gz3rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554219178174-r0jun4i3qdfcp7kkk0jpuqtpbpk3k9jd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "554219178174-f621hb7kihh9q1gj8vma3b8420pmtabr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gpMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
