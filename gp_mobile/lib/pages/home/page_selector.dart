@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 
 class PageSelector extends StatelessWidget {
   const PageSelector({Key? key}) : super(key: key);
@@ -14,12 +15,12 @@ class PageSelector extends StatelessWidget {
       crossAxisCount: 2,
       children: <Widget>[
         Material(
-          color: Colors.teal[100],
+          color: GideonsPromiseColors.blue[100],
           child: InkWell(
             onTap: () {
               print("Clicked view profile");
             },
-            splashColor: Colors.grey,
+            splashColor: GideonsPromiseColors.gray,
             child: Container(
               padding: const EdgeInsets.all(8),
               child: Center(
@@ -27,9 +28,9 @@ class PageSelector extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.only(top: 30, bottom: 20),
-                      child: Icon(
+                      child: const Icon(
                         Icons.face,
-                        color: Colors.green[500],
+                        color: Colors.white,
                         size: 48,
                       ),
                     ),
@@ -46,12 +47,12 @@ class PageSelector extends StatelessWidget {
           ),
         ),
         Material(
-          color: Colors.teal[100],
+          color: GideonsPromiseColors.blue[100],
           child: InkWell(
             onTap: () {
               print("Clicked chat");
             },
-            splashColor: Colors.grey,
+            splashColor: GideonsPromiseColors.gray,
             child: Container(
               padding: const EdgeInsets.all(8),
               child: Center(
@@ -59,9 +60,9 @@ class PageSelector extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.only(top: 30, bottom: 20),
-                      child: Icon(
+                      child: const Icon(
                         Icons.forum,
-                        color: Colors.green[500],
+                        color: Colors.white,
                         size: 48,
                       ),
                     ),
@@ -78,12 +79,12 @@ class PageSelector extends StatelessWidget {
           ),
         ),
         Material(
-          color: Colors.teal[100],
+          color: GideonsPromiseColors.blue[100],
           child: InkWell(
             onTap: () {
               print("Clicked donate");
             },
-            splashColor: Colors.grey,
+            splashColor: GideonsPromiseColors.gray,
             child: Container(
               padding: const EdgeInsets.all(8),
               child: Center(
@@ -91,9 +92,9 @@ class PageSelector extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.only(top: 30, bottom: 20),
-                      child: Icon(
+                      child: const Icon(
                         Icons.payment,
-                        color: Colors.green[500],
+                        color: Colors.white,
                         size: 48,
                       ),
                     ),
@@ -110,12 +111,12 @@ class PageSelector extends StatelessWidget {
           ),
         ),
         Material(
-          color: Colors.teal[100],
+          color: GideonsPromiseColors.blue[100],
           child: InkWell(
             onTap: () {
               print("Clicked connect with us");
             },
-            splashColor: Colors.grey,
+            splashColor: GideonsPromiseColors.gray,
             child: Container(
               padding: const EdgeInsets.all(8),
               child: Center(
@@ -123,9 +124,9 @@ class PageSelector extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.only(top: 30, bottom: 20),
-                      child: Icon(
+                      child: const Icon(
                         Icons.group_add,
-                        color: Colors.green[500],
+                        color: Colors.white,
                         size: 48,
                       ),
                     ),
