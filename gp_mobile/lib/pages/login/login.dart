@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gp_mobile/pages/home/home.dart';
 import '../onboarding/onboarding.dart';
 // import 'signup.dart';
 
 class SignInScreen extends StatelessWidget {
   late String _email, _password;
   static String email = "";
+
+  SignInScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,10 +17,10 @@ class SignInScreen extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 height: 180,
                 width: 180,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/GP_Logo.png"),
                     alignment: Alignment.bottomCenter,
@@ -25,7 +28,7 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50.0,
             ),
             Expanded(
@@ -36,7 +39,7 @@ class SignInScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("SIGN IN",
+                        const Text("SIGN IN",
                             style: TextStyle(
                               color: Color(0xFFFFBD73),
                               fontWeight: FontWeight.bold,
@@ -45,7 +48,7 @@ class SignInScreen extends StatelessWidget {
                         FlatButton(
                           color: Colors.black12,
                           textColor: Colors.white,
-                          child: Text('Sign Up',
+                          child: const Text('Sign Up',
                               style: TextStyle(
                                 color: Color(0xFFFFBD73),
                                 fontWeight: FontWeight.bold,
@@ -56,21 +59,21 @@ class SignInScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(builder: (context) {
                                 // return SignUP();
-                                return OnBoardingPage();
+                                return const OnBoardingPage();
                               }),
                             );
                           },
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 40),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 16),
                             child: Icon(
                               Icons.alternate_email,
                               color: Color(0xFFFFBD73),
@@ -81,7 +84,7 @@ class SignInScreen extends StatelessWidget {
                               onChanged: (value) {
                                 _email = value;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: "Email Address",
                               ),
                             ),
@@ -92,8 +95,8 @@ class SignInScreen extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 16),
                           child: Icon(
                             Icons.lock,
                             color: Color(0xFFFFBD73),
@@ -105,7 +108,7 @@ class SignInScreen extends StatelessWidget {
                             onChanged: (value) {
                               _password = value;
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: "Password",
                             ),
                           ),
@@ -115,12 +118,12 @@ class SignInScreen extends StatelessWidget {
                     Spacer(),
                     GestureDetector(
                       child: Container(
-                        color: Color(0xFFFFBD73),
-                        margin: EdgeInsets.only(top: 10.0),
+                        color: const Color(0xFFFFBD73),
+                        margin: const EdgeInsets.only(top: 10.0),
                         width: double.infinity,
                         height: 80.0,
-                        child: Center(
-                          child: Text('LogIn',
+                        child: const Center(
+                          child: Text('Login',
                               style: TextStyle(
                                 color: Colors.black45,
                                 fontWeight: FontWeight.bold,
@@ -129,20 +132,26 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                       onTap: () async {
-                        UserCredential user = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: _email, password: _password);
-                        if (user != null) {
-                          email = _email;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return Login_Successfull();
-                            }),
-                          );
-                        } else {
-                          print('user does not exist');
-                        }
+                        // UserCredential user = await FirebaseAuth.instance
+                        //     .signInWithEmailAndPassword(
+                        //         email: _email, password: _password);
+                        // if (user != null) {
+                        //   email = _email;
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(builder: (context) {
+                        //       return const MyHomePage(title: "Home");
+                        //     }),
+                        //   );
+                        // } else {
+                        //   print('user does not exist');
+                        // }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return const HomePage();
+                          }),
+                        );
                       },
                     ),
                   ],

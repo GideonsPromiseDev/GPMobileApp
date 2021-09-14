@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gp_mobile/pages/connect_with_us/connect_with_us.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 
 class PageSelector extends StatelessWidget {
@@ -115,6 +116,12 @@ class PageSelector extends StatelessWidget {
           child: InkWell(
             onTap: () {
               print("Clicked connect with us");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return ConnectWithUs();
+                }),
+              );
             },
             splashColor: GideonsPromiseColors.gray,
             child: Container(
