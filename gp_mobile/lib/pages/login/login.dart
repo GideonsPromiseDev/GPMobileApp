@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gp_mobile/pages/home/home.dart';
 import '../onboarding/onboarding.dart';
-// import 'signup.dart';
+import '../../signup.dart';
 
 class SignInScreen extends StatelessWidget {
   late String _email, _password;
@@ -58,8 +58,8 @@ class SignInScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
-                                // return SignUP();
-                                return const OnBoardingPage();
+                                return SignUP();
+                                // return OnBoardingPage();
                               }),
                             );
                           },
