@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gp_mobile/pages/home/home.dart';
-import '../onboarding/onboarding.dart';
-import '../../signup.dart';
+import '../signup/signup.dart';
 
 class SignInScreen extends StatelessWidget {
   late String _email, _password;
@@ -132,26 +131,26 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                       onTap: () async {
-                        // UserCredential user = await FirebaseAuth.instance
-                        //     .signInWithEmailAndPassword(
-                        //         email: _email, password: _password);
-                        // if (user != null) {
-                        //   email = _email;
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) {
-                        //       return const MyHomePage(title: "Home");
-                        //     }),
-                        //   );
-                        // } else {
-                        //   print('user does not exist');
-                        // }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return const HomePage();
-                          }),
-                        );
+                        UserCredential user = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: _email, password: _password);
+                        if (user != null) {
+                          email = _email;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return const HomePage();
+                            }),
+                          );
+                        } else {
+                          print('user does not exist');
+                        }
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) {
+                        //     return const HomePage();
+                        //   }),
+                        // );
                       },
                     ),
                   ],

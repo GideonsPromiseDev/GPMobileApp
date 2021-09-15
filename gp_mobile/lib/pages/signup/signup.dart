@@ -5,10 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'login.dart';
+import '../login/login.dart';
 
 class SignUP extends StatelessWidget {
-  late String _email,_password,_fullName, _mobileNumber;
+  late String _email, _password, _fullName, _mobileNumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,8 +61,8 @@ class SignUP extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextField(
-                          onChanged: (value){
-                            _fullName=value;
+                          onChanged: (value) {
+                            _fullName = value;
                           },
                           decoration: InputDecoration(
                             hintText: "Full Name",
@@ -84,15 +84,14 @@ class SignUP extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextField(
-                          onChanged: (value){
-                            _mobileNumber=value;
+                          onChanged: (value) {
+                            _mobileNumber = value;
                           },
                           decoration: InputDecoration(
                             hintText: "Mobile Number",
                           ),
                         ),
                       ),
-
                     ],
                   ),
                   Spacer(),
@@ -108,8 +107,8 @@ class SignUP extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextField(
-                          onChanged: (value){
-                            _email=value;
+                          onChanged: (value) {
+                            _email = value;
                           },
                           decoration: InputDecoration(
                             hintText: "Email Address",
@@ -131,8 +130,8 @@ class SignUP extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextField(
-                          onChanged: (value){
-                            _password=value;
+                          onChanged: (value) {
+                            _password = value;
                           },
                           decoration: InputDecoration(
                             hintText: "Password",
@@ -159,26 +158,28 @@ class SignUP extends StatelessWidget {
                     ),
                     onTap: () async {
                       print("I AM WORKINGO");
-                      UserCredential user= await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
-                      if(user!=null)
-                      {
+                      UserCredential user = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: _email, password: _password);
+                      if (user != null) {
                         print("I AM WORKING");
-                       await FirebaseFirestore.instance.collection('Users').doc(_email).set({
-                          'FullName':_fullName,
-                          'MobileNumber':_mobileNumber,
-                          'Email':_email,
+                        await FirebaseFirestore.instance
+                            .collection('Users')
+                            .doc(_email)
+                            .set({
+                          'FullName': _fullName,
+                          'MobileNumber': _mobileNumber,
+                          'Email': _email,
                         });
-                        
+
                         print("DONE WITH FIRESTORE");
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) {
-                        //     return SignInScreen();
-                        //   }),
-                        // );
-                      }
-                      else
-                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return SignInScreen();
+                          }),
+                        );
+                      } else {
                         print('user does not exist');
                       }
                     },
