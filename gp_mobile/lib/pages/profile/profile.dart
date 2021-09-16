@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 
 
 class Profile extends StatefulWidget {
@@ -22,9 +23,7 @@ scaffolding(String email, String mobile, String fullName, BuildContext context){
                 child:Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.purple,Colors.deepPurpleAccent],
-                    ),
+                    color: GideonsPromiseColors.blue,
                   ),
                   child: Column(
                     children: [
@@ -270,13 +269,13 @@ FutureBuilder fb = FutureBuilder<DocumentSnapshot>(
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
-        if (snapshot.hasError) {
-          return Text("Something went wrong");
-        }
+        // if (snapshot.hasError) {
+        //   return Text("Something went wrong");
+        // }
 
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
-        }
+        // if (snapshot.hasData && !snapshot.data!.exists) {
+        //   return Text("Document does not exist");
+        // }
 
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
