@@ -16,7 +16,7 @@ class PageSelector extends StatelessWidget {
       crossAxisCount: 2,
       children: <Widget>[
         Material(
-          color: GideonsPromiseColors.blue[100],
+          color: GideonsPromiseColorsComplementary.darkred[500],
           child: InkWell(
             onTap: () {
               print("Clicked view profile");
@@ -48,7 +48,7 @@ class PageSelector extends StatelessWidget {
           ),
         ),
         Material(
-          color: GideonsPromiseColors.blue[100],
+          color: GideonsPromiseColorsComplementary.teal[500],
           child: InkWell(
             onTap: () {
               print("Clicked chat");
@@ -80,7 +80,7 @@ class PageSelector extends StatelessWidget {
           ),
         ),
         Material(
-          color: GideonsPromiseColors.blue[100],
+          color: GideonsPromiseColorsComplementary.bluepurple[500],
           child: InkWell(
             onTap: () {
               print("Clicked donate");
@@ -112,7 +112,7 @@ class PageSelector extends StatelessWidget {
           ),
         ),
         Material(
-          color: GideonsPromiseColors.blue[100],
+          color: GideonsPromiseColorsComplementary.purple[500],
           child: InkWell(
             onTap: () {
               print("Clicked connect with us");
