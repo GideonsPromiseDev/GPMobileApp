@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gp_mobile/profile.dart';
 import 'onBoarding.dart';
 import 'signup.dart';
 
@@ -141,7 +142,7 @@ class SignInScreen extends StatelessWidget
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
-                                return Login_Successfull();
+                                return Profile();
                               }),
                             );
                           }

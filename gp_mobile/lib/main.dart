@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'onBoarding.dart';
+import 'profile.dart';
 
 const kBackgroundColor = Color(0xFF202020);
 const kPrimaryColor = Color(0xFFFFBD73);
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
       ),
       home: OnBoardingPage(),
+      // home: Profile(),
+
     );
   }
 }

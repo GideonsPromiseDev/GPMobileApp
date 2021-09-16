@@ -163,19 +163,20 @@ class SignUP extends StatelessWidget {
                       if(user!=null)
                       {
                         print("I AM WORKING");
-                       await FirebaseFirestore.instance.collection('Users').doc(_email).set({
+                        print(FirebaseAuth.instance.currentUser!.uid);
+                       await FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).set({
                           'FullName':_fullName,
                           'MobileNumber':_mobileNumber,
                           'Email':_email,
                         });
                         
                         print("DONE WITH FIRESTORE");
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) {
-                        //     return SignInScreen();
-                        //   }),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return SignInScreen();
+                          }),
+                        );
                       }
                       else
                       {
