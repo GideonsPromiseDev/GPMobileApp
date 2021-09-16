@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gp_mobile/pages/home/home.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 
 import 'pages/onboarding/onboarding.dart';
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
 
       // Switches between light and dark theme based on device system theme
       themeMode: ThemeMode.system,
-      home: OnBoardingPage(),
+      home: FirebaseAuth.instance.currentUser!=null ? HomePage() : OnBoardingPage(),
     );
   }
 }
