@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gp_mobile/pages/coming_soon/coming_soon.dart';
 import 'package:gp_mobile/pages/connect_with_us/connect_with_us.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 
@@ -19,7 +20,14 @@ class PageSelector extends StatelessWidget {
           color: GideonsPromiseColorsComplementary.darkred[500],
           child: InkWell(
             onTap: () {
-              print("Clicked view profile");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const ComingSoon(
+                    pageTitle: "My Profile",
+                  );
+                }),
+              );
             },
             splashColor: GideonsPromiseColors.gray,
             child: Container(
@@ -51,7 +59,14 @@ class PageSelector extends StatelessWidget {
           color: GideonsPromiseColorsComplementary.teal[500],
           child: InkWell(
             onTap: () {
-              print("Clicked chat");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const ComingSoon(
+                    pageTitle: "Chat",
+                  );
+                }),
+              );
             },
             splashColor: GideonsPromiseColors.gray,
             child: Container(
@@ -83,7 +98,14 @@ class PageSelector extends StatelessWidget {
           color: GideonsPromiseColorsComplementary.bluepurple[500],
           child: InkWell(
             onTap: () {
-              print("Clicked donate");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const ComingSoon(
+                    pageTitle: "Donate",
+                  );
+                }),
+              );
             },
             splashColor: GideonsPromiseColors.gray,
             child: Container(
@@ -115,7 +137,6 @@ class PageSelector extends StatelessWidget {
           color: GideonsPromiseColorsComplementary.purple[500],
           child: InkWell(
             onTap: () {
-              print("Clicked connect with us");
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
