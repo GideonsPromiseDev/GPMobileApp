@@ -75,7 +75,7 @@ class ConnectWithUs extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20, bottom: 20),
+            margin: const EdgeInsets.only(top: 60, bottom: 40),
             child: const Image(
               image: AssetImage("assets/GP_Logo.png"),
               height: 300,

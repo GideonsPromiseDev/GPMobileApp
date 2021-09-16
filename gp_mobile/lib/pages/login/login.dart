@@ -136,21 +136,17 @@ class SignInScreen extends StatelessWidget {
                                 email: _email, password: _password);
                         if (user != null) {
                           email = _email;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return const HomePage();
-                            }),
-                          );
+                          /**
+                           * Once you've signed in, you shouldn't be able to
+                           * go back to the sign in screen until you sign out
+                           */
+                          Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const HomePage();
+                          }), (_) => false);
                         } else {
                           print('user does not exist');
                         }
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) {
-                        //     return const HomePage();
-                        //   }),
-                        // );
                       },
                     ),
                   ],
