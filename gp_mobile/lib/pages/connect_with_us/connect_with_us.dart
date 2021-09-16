@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:gp_mobile/pages/connect_with_us/constants.dart';
+import 'package:gp_mobile/utils/url_launcher.dart';
 
 class ConnectWithUs extends StatelessWidget {
   ConnectWithUs({Key? key}) : super(key: key);
-
-  final twitterURL = "https://twitter.com/Gideons_Promise";
-
-  // _visitURL(url) async =>
-  //     await canLaunch(url) ? await launch(url) : throw 'Unable to visit $url';
 
   final addressRow = Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -24,83 +20,48 @@ class ConnectWithUs extends StatelessWidget {
       Text(
           "Gideon's Promise\n101 Marietta Street NW\nSuite 250\nAtlanta, GA 30303",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
           ))
     ],
   );
 
   final emailRow = Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: const [
-      Text(
+    children: [
+      const Text(
         "Email",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 24,
         ),
       ),
-      Text("info@gideonspromise.org",
-          style: TextStyle(
-            fontSize: 20,
-          ))
+      TextButton(
+        style: TextButton.styleFrom(textStyle: const TextStyle(fontSize: 20)),
+        onPressed: () {
+          openURL(ContactUsConstants.gpEmail);
+        },
+        child: const Text("info@gideonspromise.org"),
+      )
     ],
   );
 
   final phoneRow = Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: const [
-      Text(
+    children: [
+      const Text(
         "Phone",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 24,
         ),
       ),
-      Text("(404) 525-4505",
-          style: TextStyle(
-            fontSize: 20,
-          ))
-    ],
-  );
-
-  final socialMediaRow = Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      IconButton(
+      TextButton(
+        style: TextButton.styleFrom(textStyle: const TextStyle(fontSize: 20)),
         onPressed: () {
-          print("Clicked FB");
+          openURL(ContactUsConstants.gpTelephone);
         },
-        icon: const FaIcon(FontAwesomeIcons.facebook),
-        iconSize: 36,
-      ),
-      IconButton(
-        onPressed: () {
-          print("Clicked Twitter");
-        },
-        icon: const FaIcon(FontAwesomeIcons.twitter),
-        iconSize: 36,
-      ),
-      IconButton(
-        onPressed: () {
-          print("Clicked IG");
-        },
-        icon: const FaIcon(FontAwesomeIcons.instagram),
-        iconSize: 36,
-      ),
-      IconButton(
-        onPressed: () {
-          print("Clicked LinkedIn");
-        },
-        icon: const FaIcon(FontAwesomeIcons.linkedin),
-        iconSize: 36,
-      ),
-      IconButton(
-        onPressed: () {
-          print("Clicked YT");
-        },
-        icon: const FaIcon(FontAwesomeIcons.youtube),
-        iconSize: 36,
-      ),
+        child: const Text("(404) 525-4505"),
+      )
     ],
   );
 
@@ -128,9 +89,9 @@ class ConnectWithUs extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 20),
-            child: phoneRow,
+            child: emailRow,
           ),
-          emailRow,
+          phoneRow,
           Container(
             margin: const EdgeInsets.fromLTRB(0, 40, 0, 20),
             child: const Text(
@@ -141,7 +102,46 @@ class ConnectWithUs extends StatelessWidget {
               ),
             ),
           ),
-          socialMediaRow,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                onPressed: () {
+                  openURL(SocialMediaConstants.facebookURL);
+                },
+                icon: const FaIcon(FontAwesomeIcons.facebook),
+                iconSize: 36,
+              ),
+              IconButton(
+                onPressed: () {
+                  openURL(SocialMediaConstants.twitterURL);
+                },
+                icon: const FaIcon(FontAwesomeIcons.twitter),
+                iconSize: 36,
+              ),
+              IconButton(
+                onPressed: () {
+                  openURL(SocialMediaConstants.instagramURL);
+                },
+                icon: const FaIcon(FontAwesomeIcons.instagram),
+                iconSize: 36,
+              ),
+              IconButton(
+                onPressed: () {
+                  openURL(SocialMediaConstants.linkedinURL);
+                },
+                icon: const FaIcon(FontAwesomeIcons.linkedin),
+                iconSize: 36,
+              ),
+              IconButton(
+                onPressed: () {
+                  openURL(SocialMediaConstants.youtubeURL);
+                },
+                icon: const FaIcon(FontAwesomeIcons.youtube),
+                iconSize: 36,
+              ),
+            ],
+          )
         ],
       ),
     );
