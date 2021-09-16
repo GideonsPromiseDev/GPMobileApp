@@ -11,7 +11,7 @@ class Profile extends StatefulWidget {
   ProfilePage createState() => ProfilePage();
 }
 
-scaffolding(String email, String mobile, String fullName, BuildContext context){
+scaffolding(String email, String mobile, String fullName, String classYear, String memberType, String address, BuildContext context){
   int counter = 0;
   return Scaffold(
       body: Stack(
@@ -83,11 +83,11 @@ scaffolding(String email, String mobile, String fullName, BuildContext context){
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text("Address",
+                                        Text("Office Address",
                                           style: TextStyle(
                                             fontSize: 15.0,
                                           ),),
-                                        Text("FairyTail, Magnolia",
+                                        Text(address,
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],
@@ -114,7 +114,7 @@ scaffolding(String email, String mobile, String fullName, BuildContext context){
                                           style: TextStyle(
                                             fontSize: 15.0,
                                           ),),
-                                        Text("Spatial & Sword Magic, Telekinesis",
+                                        Text("",
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],
@@ -141,7 +141,7 @@ scaffolding(String email, String mobile, String fullName, BuildContext context){
                                           style: TextStyle(
                                             fontSize: 15.0,
                                           ),),
-                                        Text("Eating cakes",
+                                        Text("",
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],
@@ -168,7 +168,7 @@ scaffolding(String email, String mobile, String fullName, BuildContext context){
                                           style: TextStyle(
                                             fontSize: 15.0,
                                           ),),
-                                        Text("Team Natsu",
+                                        Text("",
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],
@@ -219,13 +219,13 @@ scaffolding(String email, String mobile, String fullName, BuildContext context){
                       Container(
                         child: Column(
                         children: [
-                          Text('Birthday',
+                          Text('Class Year',
                             style: TextStyle(
                                 color: Colors.grey[400],
                                 fontSize: 14.0
                             ),),
                           SizedBox(height: 5.0,),
-                          Text('April 7th',
+                          Text(classYear,
                             style: TextStyle(
                               fontSize: 15.0,
                             ),)
@@ -235,13 +235,13 @@ scaffolding(String email, String mobile, String fullName, BuildContext context){
                       Container(
                           child:Column(
                             children: [
-                              Text('Age',
+                              Text('Membership Type',
                                 style: TextStyle(
                                     color: Colors.grey[400],
                                     fontSize: 14.0
                                 ),),
                               SizedBox(height: 5.0,),
-                              Text('19 yrs',
+                              Text(memberType,
                                 style: TextStyle(
                                   fontSize: 15.0,
                                 ),)
@@ -279,10 +279,10 @@ FutureBuilder fb = FutureBuilder<DocumentSnapshot>(
 
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-          return scaffolding(data['Email'], data['MobileNumber'], data['FullName'], context);
+          return scaffolding(data['Email'], data['MobileNumber'], data['FullName'], data['ClassYear'], data['MemberType'], data['Address'], context);
         }
 
-        return scaffolding('loading', 'loading', 'loading', context);
+        return scaffolding('loading', 'loading', 'loading', 'loading', 'loading', 'loading', context);
       },
     );
   int counter = 0;
