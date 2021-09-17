@@ -43,7 +43,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "News and Publications",
           body:
-              "You will be able to see Guideon's promise latest news and publications",
+              "You will be able to see Gideon's Promise latest news and publications",
           image: const Image(
             image: AssetImage('assets/newspaper.png'),
             height: 100,

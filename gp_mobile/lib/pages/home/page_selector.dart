@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gp_mobile/pages/coming_soon/coming_soon.dart';
 import 'package:gp_mobile/pages/connect_with_us/connect_with_us.dart';
+import 'package:gp_mobile/pages/donate/donate.dart';
 import 'package:gp_mobile/pages/profile/profile.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 
@@ -24,7 +25,7 @@ class PageSelector extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return Profile();
+                  return const Profile();
                 }),
               );
             },
@@ -100,9 +101,7 @@ class PageSelector extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return const ComingSoon(
-                    pageTitle: "Donate",
-                  );
+                  return const Donate();
                 }),
               );
             },
