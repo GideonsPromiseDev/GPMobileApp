@@ -25,6 +25,7 @@ scaffolding(String email, String mobile, String fullName, String classYear,
         margin: const EdgeInsets.only(top: 60, left: 20),
         child: IconButton(
           icon: const FaIcon(FontAwesomeIcons.longArrowAltLeft),
+          color: Colors.white,
           iconSize: 32,
           onPressed: () {
             Navigator.pop(context);

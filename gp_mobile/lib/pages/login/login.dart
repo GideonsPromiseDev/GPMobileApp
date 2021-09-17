@@ -11,20 +11,48 @@ class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    const gold = Color(0xFFFFBD73);
+
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: <Widget>[
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.only(top: 20),
-                height: 180,
-                width: 180,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/GP_Logo.png"),
-                    alignment: Alignment.bottomCenter,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(top: 10, right: 20),
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        gold,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return SignUP();
+                        }),
+                      );
+                    },
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black45),
+                    ),
                   ),
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 150),
+              height: 200,
+              width: 200,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/GP_Logo.png"),
+                  alignment: Alignment.bottomCenter,
                 ),
               ),
             ),
@@ -36,34 +64,21 @@ class SignInScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        const Text("SIGN IN",
-                            style: TextStyle(
-                              color: Color(0xFFFFBD73),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40,
-                            )),
-                        FlatButton(
-                          color: Colors.black12,
-                          textColor: Colors.white,
-                          child: const Text('Sign Up',
-                              style: TextStyle(
-                                color: Color(0xFFFFBD73),
-                                fontWeight: FontWeight.bold,
-                              )),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return SignUP();
-                              }),
-                            );
-                          },
-                        ),
-                      ],
+                    const Text(
+                      "Welcome!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: gold,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40,
+                      ),
                     ),
+                    const Text("Please sign in",
+                        style: TextStyle(
+                          color: gold,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        )),
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 40),
@@ -74,7 +89,7 @@ class SignInScreen extends StatelessWidget {
                             padding: EdgeInsets.only(right: 16),
                             child: Icon(
                               Icons.alternate_email,
-                              color: Color(0xFFFFBD73),
+                              color: gold,
                             ),
                           ),
                           Expanded(
@@ -97,7 +112,7 @@ class SignInScreen extends StatelessWidget {
                           padding: EdgeInsets.only(right: 16),
                           child: Icon(
                             Icons.lock,
-                            color: Color(0xFFFFBD73),
+                            color: gold,
                           ),
                         ),
                         Expanded(
@@ -113,10 +128,10 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     GestureDetector(
                       child: Container(
-                        color: const Color(0xFFFFBD73),
+                        color: gold,
                         margin: const EdgeInsets.only(top: 10.0),
                         width: double.infinity,
                         height: 80.0,
