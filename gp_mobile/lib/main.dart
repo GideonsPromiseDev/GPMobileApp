@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gp_mobile/helper_widgets/initial_page_selector.dart';
 import 'package:gp_mobile/models/simple_user.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
-import 'package:gp_mobile/utils/firebase_authenticator.dart';
+import 'package:gp_mobile/services/firebase_authenticator.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {

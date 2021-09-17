@@ -1,14 +1,20 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_database/firebase_database.dart'
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../login/login.dart';
+import 'package:gp_mobile/models/simple_user.dart';
+import 'package:gp_mobile/pages/login/login.dart';
+import 'package:gp_mobile/services/firebase_authenticator.dart';
 
 class SignUP extends StatelessWidget {
-  late String _email, _password, _fullName, _mobileNumber, _classYear, _partType, _address;
+  late String _email,
+      _password,
+      _firstName,
+      _lastName,
+      _mobileNumber,
+      _classYear,
+      _memberType,
+      _address;
+
+  SignUP({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +23,10 @@ class SignUP extends StatelessWidget {
           SafeArea(
             child: Expanded(
               child: Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 height: 100,
                 width: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/GP_Logo.png"),
                     alignment: Alignment.bottomCenter,
@@ -29,7 +35,7 @@ class SignUP extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 0.0,
           ),
           Expanded(
@@ -39,7 +45,7 @@ class SignUP extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: const <Widget>[
                       Text("SIGN UP",
                           style: TextStyle(
                             color: Color(0xFFFFBD73),
@@ -51,8 +57,8 @@ class SignUP extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
                         child: Icon(
                           Icons.person,
                           color: Color(0xFFFFBD73),
@@ -61,21 +67,44 @@ class SignUP extends StatelessWidget {
                       Expanded(
                         child: TextField(
                           onChanged: (value) {
-                            _fullName = value;
+                            _firstName = value;
                           },
-                          decoration: InputDecoration(
-                            hintText: "Full Name",
+                          decoration: const InputDecoration(
+                            hintText: "First Name",
                           ),
                         ),
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
+                        child: Icon(
+                          Icons.person,
+                          color: Color(0xFFFFBD73),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          onChanged: (value) {
+                            _lastName = value;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "Last Name",
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
                         child: Icon(
                           Icons.calendar_today,
                           color: Color(0xFFFFBD73),
@@ -86,19 +115,19 @@ class SignUP extends StatelessWidget {
                           onChanged: (value) {
                             _classYear = value;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Class Year",
                           ),
                         ),
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
                         child: Icon(
                           Icons.account_tree,
                           color: Color(0xFFFFBD73),
@@ -107,21 +136,21 @@ class SignUP extends StatelessWidget {
                       Expanded(
                         child: TextField(
                           onChanged: (value) {
-                            _partType = value;
+                            _memberType = value;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Member Participant Type",
                           ),
                         ),
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
                         child: Icon(
                           Icons.map,
                           color: Color(0xFFFFBD73),
@@ -132,19 +161,19 @@ class SignUP extends StatelessWidget {
                           onChanged: (value) {
                             _address = value;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Office Address",
                           ),
                         ),
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
                         child: Icon(
                           Icons.phone,
                           color: Color(0xFFFFBD73),
@@ -155,19 +184,19 @@ class SignUP extends StatelessWidget {
                           onChanged: (value) {
                             _mobileNumber = value;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Mobile Number",
                           ),
                         ),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
                         child: Icon(
                           Icons.alternate_email,
                           color: Color(0xFFFFBD73),
@@ -178,19 +207,19 @@ class SignUP extends StatelessWidget {
                           onChanged: (value) {
                             _email = value;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Email Address",
                           ),
                         ),
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 16),
                         child: Icon(
                           Icons.lock,
                           color: Color(0xFFFFBD73),
@@ -201,21 +230,21 @@ class SignUP extends StatelessWidget {
                           onChanged: (value) {
                             _password = value;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Password",
                           ),
                         ),
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   GestureDetector(
                     child: Container(
-                      color: Color(0xFFFFBD73),
-                      margin: EdgeInsets.only(top: 10.0, bottom: 15.0),
+                      color: const Color(0xFFFFBD73),
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 15.0),
                       width: double.infinity,
                       height: 40.0,
-                      child: Center(
+                      child: const Center(
                         child: Text('Sign Up',
                             style: TextStyle(
                               color: Colors.black45,
@@ -225,23 +254,17 @@ class SignUP extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      print("I AM WORKINGO");
-                      UserCredential user = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                              email: _email, password: _password);
+                      SimpleUser? user = await FirebaseAuthenticator()
+                          .registerUser(
+                              email: _email,
+                              password: _password,
+                              firstName: _firstName,
+                              lastName: _lastName,
+                              phoneNumber: _mobileNumber,
+                              officeAddress: _address,
+                              classYear: _classYear,
+                              memberType: _memberType);
                       if (user != null) {
-                        print("I AM WORKING");
-                        print(FirebaseAuth.instance.currentUser!.uid);
-                       await FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).set({
-                          'FullName':_fullName,
-                          'MobileNumber':_mobileNumber,
-                          'Email':_email,
-                          'Address': _address,
-                          'ClassYear': _classYear,
-                          'MemberType' : _partType
-                        });
-
-                        print("DONE WITH FIRESTORE");
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) {

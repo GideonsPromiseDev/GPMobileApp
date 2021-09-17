@@ -5,7 +5,6 @@ import 'package:gp_mobile/pages/connect_with_us/connect_with_us.dart';
 import 'package:gp_mobile/pages/profile/profile.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 
-
 class PageSelector extends StatelessWidget {
   const PageSelector({Key? key}) : super(key: key);
 
@@ -25,7 +24,7 @@ class PageSelector extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return Profile();
+                  return const Profile();
                 }),
               );
             },

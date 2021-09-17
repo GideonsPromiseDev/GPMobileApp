@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gp_mobile/models/simple_user.dart';
 import 'package:gp_mobile/pages/home/home.dart';
-import 'package:gp_mobile/utils/firebase_authenticator.dart';
-import '../signup/signup.dart';
+import 'package:gp_mobile/pages/signup/signup.dart';
+import 'package:gp_mobile/services/firebase_authenticator.dart';
 
 class SignInScreen extends StatelessWidget {
   late String _email, _password;
@@ -55,12 +54,10 @@ class SignInScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               )),
                           onPressed: () {
-                            print('Pressed SignUP!');
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
                                 return SignUP();
-                                // return OnBoardingPage();
                               }),
                             );
                           },
@@ -133,29 +130,13 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                       onTap: () async {
-                        // UserCredential user = await FirebaseAuth.instance
-                        //     .signInWithEmailAndPassword(
-                        //         email: _email, password: _password);
-                        // if (user != null) {
-                        //   email = _email;
-                        //   /**
-                        //    * Once you've signed in, you shouldn't be able to
-                        //    * go back to the sign in screen until you sign out
-                        //    */
-                        //   Navigator.pushAndRemoveUntil(context,
-                        //       MaterialPageRoute(builder: (context) {
-                        //     return const HomePage();
-                        //   }), (_) => false);
-                        // } else {
-                        //   print('user does not exist');
-                        // }
                         SimpleUser? user = await FirebaseAuthenticator()
                             .signInWithEmailAndPassword(
                                 context: context,
                                 email: _email,
                                 password: _password);
+
                         if (user != null) {
-                          print(user.toString());
                           Navigator.pushAndRemoveUntil(context,
                               MaterialPageRoute(builder: (context) {
                             return const HomePage();

@@ -1,293 +1,376 @@
-import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gp_mobile/models/simple_user.dart';
+import 'package:gp_mobile/pages/login/login.dart';
+import 'package:gp_mobile/services/constants.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
-
+import 'package:gp_mobile/services/database.dart';
+import 'package:gp_mobile/services/firebase_authenticator.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
+
   @override
   ProfilePage createState() => ProfilePage();
 }
 
-scaffolding(String email, String mobile, String fullName, String classYear, String memberType, String address, BuildContext context){
-  int counter = 0;
+scaffolding(String email, String mobile, String fullName, String classYear,
+    String memberType, String address, BuildContext context) {
   return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                flex:5,
-                child:Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: GideonsPromiseColors.blue,
+    body: Stack(
+      children: [
+        Column(
+          children: [
+            Expanded(
+              flex: 5,
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: GideonsPromiseColors.blue,
+                ),
+                child: Column(children: [
+                  const SizedBox(
+                    height: 110.0,
                   ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 110.0,),
-                      CircleAvatar(
-                        radius: 65.0,
-                        backgroundImage: AssetImage('assets/as.png'),
-                        backgroundColor: Colors.white,
-                      ),
-                      SizedBox(height: 10.0,),
-                      Text(fullName,
-                      style: TextStyle(
-                        color:Colors.white,
+                  const CircleAvatar(
+                    radius: 65.0,
+                    backgroundImage: AssetImage('assets/as.png'),
+                    backgroundColor: Colors.white,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(fullName,
+                      style: const TextStyle(
+                        color: Colors.white,
                         fontSize: 20.0,
                       )),
-                      SizedBox(height: 10.0,),
-                      Text(email,
-                      style: TextStyle(
-                        color:Colors.white,
-                        fontSize: 15.0,
-                      ),)
-                  ]
+                  const SizedBox(
+                    height: 10.0,
                   ),
-                ),
-              ),
-
-              Expanded(
-                flex:5,
-                child: Container(
-                  color: Colors.grey[200],
-                  child: Center(
-                      child:Card(
-                          margin: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-                        child: Container(
-                          width: 310.0,
-                          height:290.0,
-                          child: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Information",
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.w800,
-                                ),),
-                                Divider(color: Colors.grey[300],),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.home,
-                                      color: Colors.blueAccent[400],
-                                      size: 35,
-                                    ),
-                                    SizedBox(width: 20.0,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Office Address",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),),
-                                        Text(address,
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),)
-                                      ],
-                                    )
-
-                                  ],
-                                ),
-                                SizedBox(height: 20.0,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.auto_awesome,
-                                      color: Colors.yellowAccent[400],
-                                      size: 35,
-                                    ),
-                                    SizedBox(width: 20.0,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Hobbies",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),),
-                                        Text("",
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),)
-                                      ],
-                                    )
-
-                                  ],
-                                ),
-                                SizedBox(height: 20.0,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.favorite,
-                                      color: Colors.pinkAccent[400],
-                                      size: 35,
-                                    ),
-                                    SizedBox(width: 20.0,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Interests",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),),
-                                        Text("",
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),)
-                                      ],
-                                    )
-
-                                  ],
-                                ),
-                                SizedBox(height: 20.0,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.people,
-                                      color: Colors.lightGreen[400],
-                                      size: 35,
-                                    ),
-                                    SizedBox(width: 20.0,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Team",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                          ),),
-                                        Text("",
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[400],
-                                          ),)
-                                      ],
-                                    )
-
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        )
-                      )
+                  Text(
+                    email,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
                     ),
-                  ),
+                  )
+                ]),
               ),
-
-            ],
-          ),
-          Positioned(
-              top:MediaQuery.of(context).size.height*0.45,
-              left: 20.0,
-              right: 20.0,
-              child: Card(
+            ),
+            Expanded(
+              flex: 5,
+              child: Container(
+                color: Colors.grey[200],
+                child: Center(
+                    child: Card(
+                        margin: const EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
+                        child: SizedBox(
+                            width: 310.0,
+                            height: 290.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Information",
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.grey[300],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.home,
+                                        color: Colors.blueAccent[400],
+                                        size: 35,
+                                      ),
+                                      const SizedBox(
+                                        width: 20.0,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Office Address",
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            address,
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.grey[400],
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.auto_awesome,
+                                        color: Colors.yellowAccent[400],
+                                        size: 35,
+                                      ),
+                                      const SizedBox(
+                                        width: 20.0,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Hobbies",
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            "",
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.grey[400],
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.favorite,
+                                        color: Colors.pinkAccent[400],
+                                        size: 35,
+                                      ),
+                                      const SizedBox(
+                                        width: 20.0,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Interests",
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            "",
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.grey[400],
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.people,
+                                        color: Colors.lightGreen[400],
+                                        size: 35,
+                                      ),
+                                      const SizedBox(
+                                        width: 20.0,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Team",
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            "",
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.grey[400],
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )))),
+              ),
+            ),
+          ],
+        ),
+        Positioned(
+            top: MediaQuery.of(context).size.height * 0.45,
+            left: 20.0,
+            right: 20.0,
+            child: Card(
                 child: Padding(
-                  padding:EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
                     children: [
-                      Container(
-                        child:Column(
-                          children: [
-                            Text('Phone number',
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14.0
-                            ),),
-                            SizedBox(height: 5.0,),
-                            Text("$mobile",
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),)
-                          ],
-                        )
+                      Text(
+                        'Phone number',
+                        style:
+                            TextStyle(color: Colors.grey[400], fontSize: 14.0),
                       ),
-
-                      Container(
-                        child: Column(
-                        children: [
-                          Text('Class Year',
-                            style: TextStyle(
-                                color: Colors.grey[400],
-                                fontSize: 14.0
-                            ),),
-                          SizedBox(height: 5.0,),
-                          Text(classYear,
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),)
-                        ]),
+                      const SizedBox(
+                        height: 5.0,
                       ),
-
-                      Container(
-                          child:Column(
-                            children: [
-                              Text('Membership Type',
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 14.0
-                                ),),
-                              SizedBox(height: 5.0,),
-                              Text(memberType,
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                ),)
-                            ],
-                          )
-                      ),
+                      Text(
+                        mobile,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                        ),
+                      )
                     ],
                   ),
-                )
-              )
-          )
-        ],
-
-      ),
-    );
+                  Column(children: [
+                    Text(
+                      'Class Year',
+                      style: TextStyle(color: Colors.grey[400], fontSize: 14.0),
+                    ),
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(
+                      classYear,
+                      style: const TextStyle(
+                        fontSize: 15.0,
+                      ),
+                    )
+                  ]),
+                  Column(
+                    children: [
+                      Text(
+                        'Membership Type',
+                        style:
+                            TextStyle(color: Colors.grey[400], fontSize: 14.0),
+                      ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        memberType,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ))),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 60, left: 20),
+              child: IconButton(
+                icon: const FaIcon(FontAwesomeIcons.longArrowAltLeft),
+                iconSize: 32,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 60, right: 20),
+              child: TextButton(
+                child: const Text(
+                  "Sign Out",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white),
+                ),
+                onPressed: () async {
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) {
+                    return SignInScreen();
+                  }), (_) => false);
+                  await FirebaseAuthenticator().signOut();
+                },
+              ),
+            )
+          ],
+        )
+      ],
+    ),
+  );
 }
 
 class ProfilePage extends State<Profile> {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-final FirebaseAuth auth = FirebaseAuth.instance;
-final User? user = FirebaseAuth.instance.currentUser;
-String s = FirebaseAuth.instance.currentUser!.uid;
-FutureBuilder fb = FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
-        // if (snapshot.hasError) {
-        //   return Text("Something went wrong");
-        // }
-
-        // if (snapshot.hasData && !snapshot.data!.exists) {
-        //   return Text("Document does not exist");
-        // }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-          return scaffolding(data['Email'], data['MobileNumber'], data['FullName'], data['ClassYear'], data['MemberType'], data['Address'], context);
-        }
-
-        return scaffolding('loading', 'loading', 'loading', 'loading', 'loading', 'loading', context);
-      },
-    );
-  int counter = 0;
   @override
   Widget build(BuildContext context) {
-    return fb;
+    final simpleUser = Provider.of<SimpleUser?>(context);
+
+    Widget loadingProfile = scaffolding('loading', 'loading', 'loading',
+        'loading', 'loading', 'loading', context);
+
+    if (simpleUser == null) {
+      return loadingProfile;
+    }
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: DatabaseService(uid: simpleUser.uid).getUserProfile(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError || (snapshot.hasData && !snapshot.data!.exists)) {
+          return const Text("Something went wrong");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> userProfile =
+              snapshot.data!.data() as Map<String, dynamic>;
+          String fullName = userProfile[UserProfileKeys.firstName] +
+              " " +
+              userProfile[UserProfileKeys.lastName];
+
+          return scaffolding(
+              userProfile[UserProfileKeys.email],
+              userProfile[UserProfileKeys.phoneNumber],
+              fullName,
+              userProfile[UserProfileKeys.classYear],
+              userProfile[UserProfileKeys.memberType],
+              userProfile[UserProfileKeys.officeAddress],
+              context);
+        }
+
+        return loadingProfile;
+      },
+    );
   }
 }
