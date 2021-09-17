@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gp_mobile/models/simple_user.dart';
 import 'package:gp_mobile/pages/home/home.dart';
@@ -7,6 +8,7 @@ import 'package:gp_mobile/services/firebase_authenticator.dart';
 class SignInScreen extends StatelessWidget {
   late String _email, _password;
   static String email = "";
+  final _formKey = GlobalKey<FormState>();
 
   SignInScreen({Key? key}) : super(key: key);
   @override
@@ -60,106 +62,140 @@ class SignInScreen extends StatelessWidget {
               height: 50.0,
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: <Widget>[
-                    const Text(
-                      "Welcome!",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: gold,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                      ),
-                    ),
-                    const Text("Please sign in",
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: <Widget>[
+                      const Text(
+                        "Welcome!",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: gold,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        )),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 40),
-                      child: Row(
+                          fontSize: 40,
+                        ),
+                      ),
+                      const Text("Please sign in",
+                          style: TextStyle(
+                            color: gold,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          )),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 40),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: Icon(
+                                Icons.alternate_email,
+                                color: gold,
+                              ),
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter an email';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  _email = value;
+                                },
+                                decoration: const InputDecoration(
+                                  hintText: "Email Address",
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           const Padding(
                             padding: EdgeInsets.only(right: 16),
                             child: Icon(
-                              Icons.alternate_email,
+                              Icons.lock,
                               color: gold,
                             ),
                           ),
                           Expanded(
-                            child: TextField(
+                            child: TextFormField(
+                              obscureText: true,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a password';
+                                }
+                                return null;
+                              },
                               onChanged: (value) {
-                                _email = value;
+                                _password = value;
                               },
                               decoration: const InputDecoration(
-                                hintText: "Email Address",
+                                hintText: "Password",
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(right: 16),
-                          child: Icon(
-                            Icons.lock,
-                            color: gold,
+                      const Spacer(),
+                      GestureDetector(
+                        child: Container(
+                          color: gold,
+                          margin: const EdgeInsets.only(top: 10.0),
+                          width: double.infinity,
+                          height: 80.0,
+                          child: const Center(
+                            child: Text('Login',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                )),
                           ),
                         ),
-                        Expanded(
-                          child: TextField(
-                            obscureText: true,
-                            onChanged: (value) {
-                              _password = value;
-                            },
-                            decoration: const InputDecoration(
-                              hintText: "Password",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      child: Container(
-                        color: gold,
-                        margin: const EdgeInsets.only(top: 10.0),
-                        width: double.infinity,
-                        height: 80.0,
-                        child: const Center(
-                          child: Text('Login',
-                              style: TextStyle(
-                                color: Colors.black45,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                              )),
-                        ),
-                      ),
-                      onTap: () async {
-                        SimpleUser? user = await FirebaseAuthenticator()
-                            .signInWithEmailAndPassword(
-                                context: context,
-                                email: _email,
-                                password: _password);
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            try {
+                              SimpleUser? user = await FirebaseAuthenticator()
+                                  .signInWithEmailAndPassword(
+                                      context: context,
+                                      email: _email,
+                                      password: _password);
 
-                        if (user != null) {
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const HomePage();
-                          }), (_) => false);
-                        }
-                      },
-                    ),
-                  ],
+                              if (user != null) {
+                                Navigator.pushAndRemoveUntil(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return const HomePage();
+                                }), (_) => false);
+                              }
+                            } on FirebaseAuthException catch (e) {
+                              String errorMessage =
+                                  "An error has occurred. Please try again later";
+
+                              if (e.code == 'user-not-found') {
+                                errorMessage =
+                                    'Unable to find user. Please try again or sign up';
+                              } else if (e.code == 'invalid-email' ||
+                                  e.code == 'wrong-password') {
+                                errorMessage =
+                                    'Provided email or password is invalid. Please try again or sign up';
+                              }
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(errorMessage)),
+                              );
+                            }
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

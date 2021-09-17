@@ -49,12 +49,8 @@ class FirebaseAuthenticator {
           officeAddress: userProfile.get(UserProfileKeys.officeAddress),
           classYear: userProfile.get(UserProfileKeys.classYear),
           memberType: userProfile.get(UserProfileKeys.memberType));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided.');
-      }
+    } on FirebaseAuthException {
+      rethrow;
     }
     return user;
   }
