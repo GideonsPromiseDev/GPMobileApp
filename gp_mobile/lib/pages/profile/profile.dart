@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gp_mobile/helper_widgets/initial_page_selector.dart';
 import 'package:gp_mobile/models/simple_user.dart';
-import 'package:gp_mobile/pages/login/login.dart';
 import 'package:gp_mobile/services/constants.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 import 'package:gp_mobile/services/database.dart';
@@ -41,11 +41,11 @@ scaffolding(String email, String mobile, String fullName, String classYear,
                 fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
           ),
           onPressed: () async {
+            await FirebaseAuthenticator().signOut();
             Navigator.pushAndRemoveUntil(context,
                 MaterialPageRoute(builder: (context) {
-              return SignInScreen();
+              return const InitialPageSelector();
             }), (_) => false);
-            await FirebaseAuthenticator().signOut();
           },
         ),
       )

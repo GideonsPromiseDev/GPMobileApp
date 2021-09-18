@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gp_mobile/helper_widgets/initial_page_selector.dart';
 import 'package:gp_mobile/models/simple_user.dart';
+import 'package:gp_mobile/pages/onboarding/onboarding.dart';
 import 'package:gp_mobile/themes/gideons_promise_colors.dart';
 import 'package:gp_mobile/services/firebase_authenticator.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 
         // Switches between light and dark theme based on device system theme
         themeMode: ThemeMode.system,
-        home: const InitialPageSelector(),
+        home: const OnBoardingPage(),
       ),
     );
   }

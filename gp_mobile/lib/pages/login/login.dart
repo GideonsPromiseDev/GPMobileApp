@@ -2,15 +2,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gp_mobile/models/simple_user.dart';
 import 'package:gp_mobile/pages/home/home.dart';
-import 'package:gp_mobile/pages/signup/signup.dart';
 import 'package:gp_mobile/services/firebase_authenticator.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
+  final Function toggleView;
+
+  const SignInScreen({Key? key, required this.toggleView}) : super(key: key);
+
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
   late String _email, _password;
-  static String email = "";
   final _formKey = GlobalKey<FormState>();
 
-  SignInScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     const gold = Color(0xFFFFBD73);
@@ -31,12 +37,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return SignUP();
-                        }),
-                      );
+                      widget.toggleView();
                     },
                     child: const Text(
                       "Sign Up",
@@ -163,18 +164,11 @@ class SignInScreen extends StatelessWidget {
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             try {
-                              SimpleUser? user = await FirebaseAuthenticator()
+                              await FirebaseAuthenticator()
                                   .signInWithEmailAndPassword(
                                       context: context,
                                       email: _email,
                                       password: _password);
-
-                              if (user != null) {
-                                Navigator.pushAndRemoveUntil(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return const HomePage();
-                                }), (_) => false);
-                              }
                             } on FirebaseAuthException catch (e) {
                               String errorMessage =
                                   "An error has occurred. Please try again later";

@@ -82,15 +82,13 @@ class FirebaseAuthenticator {
 
       return _simpleUserFromFirebaseUser(userCredential.user);
     } on FirebaseAuthException catch (e) {
+      // This catch should be removed prior to production release
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        print("This user was created with a weak password");
+      } else {
+        rethrow;
       }
-    } catch (e) {
-      print(e);
     }
-    return null;
   }
 
   Future signOut() async {
