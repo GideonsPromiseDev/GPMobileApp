@@ -49,12 +49,8 @@ class FirebaseAuthenticator {
           officeAddress: userProfile.get(UserProfileKeys.officeAddress),
           classYear: userProfile.get(UserProfileKeys.classYear),
           memberType: userProfile.get(UserProfileKeys.memberType));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided.');
-      }
+    } on FirebaseAuthException {
+      rethrow;
     }
     return user;
   }
@@ -86,15 +82,13 @@ class FirebaseAuthenticator {
 
       return _simpleUserFromFirebaseUser(userCredential.user);
     } on FirebaseAuthException catch (e) {
+      // This catch should be removed prior to production release
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        print("This user was created with a weak password");
+      } else {
+        rethrow;
       }
-    } catch (e) {
-      print(e);
     }
-    return null;
   }
 
   Future signOut() async {
