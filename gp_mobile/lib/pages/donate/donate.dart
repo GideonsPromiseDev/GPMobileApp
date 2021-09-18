@@ -26,18 +26,25 @@ class Donate extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                onPressed: () {
-                  openURL(DonateConstants.donateURL);
-                },
-                icon: const FaIcon(FontAwesomeIcons.moneyCheckAlt),
-                iconSize: 36,
+          IconButton(
+            onPressed: () {
+              openURL(DonateConstants.donateURL);
+            },
+            icon: const FaIcon(FontAwesomeIcons.moneyCheckAlt),
+            iconSize: 36,
+          ),
+          const Text("Click here to donate"),
+          Container(
+            margin: const EdgeInsets.only(top: 40),
+            child: const Text(
+              "Please consider donating. Every little bit helps!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
               ),
-            ],
-          )
+            ),
+          ),
         ],
       ),
     );
